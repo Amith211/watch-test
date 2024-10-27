@@ -1,0 +1,15 @@
+services:
+  webserver-test:
+    build:
+      dockerfile: './containers/webserver/dockerfile'
+      context: .
+    ports:
+      - 8080:80
+    develop:
+      watch:
+        - action: sync
+          x-initialSync: true
+          path: ./src/web/www
+          target: /usr/local/apache2/htdocs/
+    deploy:
+      replicas: 1
